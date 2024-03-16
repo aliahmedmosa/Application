@@ -1,0 +1,10 @@
+﻿global using Domain.Entities;
+global using Application.DTOs.Common;
+global using AutoMapper;
+global using Application.DTOs.EntitiesDTOs.UnitOfMeasurementDTOs;
+global using Application.DTOs.EntitiesDTOs.ItemDTOs;
+global using Microsoft.Extensions.DependencyInjection;
+global using Application.MappingProfiles;
+global using MediatR;
+global using Application.Features.UnitOfMeasurement.Requests.Query;
+global using Application.Persistence.Contracts;
