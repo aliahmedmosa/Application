@@ -17,9 +17,12 @@ namespace Application.Features.UnitOfMeasurement.Handlers.Command
             _repository = repository;
             _mapper = mapper;
         }
-        public Task<Unit> Handle(UpdateUomCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateUomCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var oldUom = await _repository.GetAsync(request.UOMDTO.Id);
+            var res = _mapper.Map(request.UOMDTO,oldUom);
+            await _repository.UpdateAsync(res);
+            return Unit.Value;
         }
     }
 }
