@@ -11,7 +11,7 @@ namespace Application.MappingProfiles
         public UnitOfMeasurementMappingProfile()
         {
                 //Configure Automapper
-                CreateMap<UnitOfMeasurement, UnitOfMeasurementDTO>().ReverseMap();
+                CreateMap<UOM, UOMDTO>().ReverseMap();
         }
     }
 }

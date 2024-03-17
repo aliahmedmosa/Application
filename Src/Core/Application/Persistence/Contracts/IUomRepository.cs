@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Persistence.Contracts
 {
-    public interface IUnitOfmeasurementRepository:IGenericRepository<UnitOfMeasurement>
+    public interface IUomRepository:IGenericRepository<UOM>
     {
         //Special for UnitOfmeasurement
     }

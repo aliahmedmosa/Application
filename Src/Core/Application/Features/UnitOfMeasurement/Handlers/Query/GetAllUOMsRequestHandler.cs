@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Handlers.Query
 {
-    public class GetAllUOMsRequestHandler : IRequestHandler<GetAllUOMsRequest, List<UnitOfMeasurementDTO>>
+    public class GetAllUOMsRequestHandler : IRequestHandler<GetAllUOMsRequest, List<UOMDTO>>
     {
-        private readonly IUnitOfmeasurementRepository _repository;
+        private readonly IUomRepository _repository;
         private readonly IMapper _mapper;
 
-        public GetAllUOMsRequestHandler(IUnitOfmeasurementRepository repository, IMapper mapper)
+        public GetAllUOMsRequestHandler(IUomRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<List<UnitOfMeasurementDTO>> Handle(GetAllUOMsRequest request, CancellationToken cancellationToken)
+        public async Task<List<UOMDTO>> Handle(GetAllUOMsRequest request, CancellationToken cancellationToken)
         {
             var UOMs = await _repository.GetAllAsync();
-            var result = _mapper.Map<List<UnitOfMeasurementDTO>>(UOMs);
+            var result = _mapper.Map<List<UOMDTO>>(UOMs);
             return result;
         }
     }

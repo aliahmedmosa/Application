@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Persistence.Contracts
 {
-    public interface IItem:IGenericRepository<Item>
+    public interface IItemRepository:IGenericRepository<Item>
     {
         //Special For Item
     }

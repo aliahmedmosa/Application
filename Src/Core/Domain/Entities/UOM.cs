@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs.EntitiesDTOs.UnitOfMeasurementDTOs
+namespace Domain.Entities
 {
-    public class UnitOfMeasurementDTO : BaseDTO<int>
+    public class UOM : BaseEntity<int>
     {
-        public string UOM { get; set; }
+        public string Uom { get; set; }
         public string Description { get; set; }
+
     }
 }

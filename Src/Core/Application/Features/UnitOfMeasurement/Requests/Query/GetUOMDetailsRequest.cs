@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Requests.Query
 {
-    public class GetUOMDetailsRequest:IRequest<UnitOfMeasurementDTO>
+    public class GetUOMDetailsRequest:IRequest<UOMDTO>
     {
         public int Id { get; set; }
     }
