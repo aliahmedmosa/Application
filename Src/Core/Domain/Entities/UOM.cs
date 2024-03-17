@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class UOM : BaseEntity<int>
     {
-        public string Uom { get; set; }
+        public string Unit { get; set; }
         public string Description { get; set; }
 
+        public virtual ICollection<Item> Items { get; set; } = new HashSet<Item>();
     }
 }
