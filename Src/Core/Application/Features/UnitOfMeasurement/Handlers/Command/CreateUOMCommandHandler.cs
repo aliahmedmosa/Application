@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 namespace Application.Features.UnitOfMeasurement.Handlers.Command
 {
-    internal class CreateUOMCommandHandler : IRequestHandler<CreateUOMCommand, Unit>
+    public class CreateUOMCommandHandler : IRequestHandler<CreateUOMCommand, Unit>
     {
         private readonly IUomRepository _repository;
         private readonly IMapper _mapper;

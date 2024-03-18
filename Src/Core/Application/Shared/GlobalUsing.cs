@@ -8,3 +8,4 @@ global using Application.MappingProfiles;
 global using MediatR;
 global using Application.Features.UnitOfMeasurement.Requests.Query;
 global using Application.Persistence.Contracts;
+global using Application.Features.Items.Requests.Query;

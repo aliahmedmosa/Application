@@ -8,7 +8,7 @@ namespace Application.DTOs.EntitiesDTOs.UnitOfMeasurementDTOs
 {
     public class UOMDTO : BaseDTO<int>
     {
-        public string UOM { get; set; }
+        public string Unit { get; set; }
         public string Description { get; set; }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.EntitiesDTOs.ItemDTOs
 {
-    internal class ItemDTO : BaseDTO<int>
+    public class ItemDTO : BaseDTO<int>
     {
         public string Name { get; set; }
+        public int UOMId { get; set; }
     }
     
 }
