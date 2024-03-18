@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Items.Handlers.Command
 {
-    internal class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
+    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IItemRepository _repository;
 
