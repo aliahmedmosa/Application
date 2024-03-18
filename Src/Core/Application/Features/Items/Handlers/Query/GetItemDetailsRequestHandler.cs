@@ -1,18 +1,11 @@
-﻿using Application.Features.Items.Requests.Query;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Features.Items.Handlers.Query
+﻿namespace Application.Features.Items.Handlers.Query
 {
     public class GetItemDetailsRequestHandler : IRequestHandler<GetItemDetailsRequest, ItemDTO>
     {
         private readonly IItemRepository _repository;
         private readonly IMapper _mapper;
 
-        public GetItemDetailsRequestHandler(IItemRepository repository,IMapper mapper)
+        public GetItemDetailsRequestHandler(IItemRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
