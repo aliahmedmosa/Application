@@ -14,5 +14,6 @@ namespace Application.Persistence.Contracts
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
         Task SaveChangesAsync();
+        Task<bool> IsExisting(int id);
     }
 }

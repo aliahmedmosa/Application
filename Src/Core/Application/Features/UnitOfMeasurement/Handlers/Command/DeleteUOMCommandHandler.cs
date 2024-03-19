@@ -1,11 +1,4 @@
-﻿using Application.Features.UnitOfMeasurement.Requests.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Features.UnitOfMeasurement.Handlers.Command
+﻿namespace Application.Features.UnitOfMeasurement.Handlers.Command
 {
     public class DeleteUOMCommandHandler : IRequestHandler<DeleteUOMCommand>
     {
@@ -17,7 +10,11 @@ namespace Application.Features.UnitOfMeasurement.Handlers.Command
         }
         public async Task<Unit> Handle(DeleteUOMCommand request, CancellationToken cancellationToken)
         {
-            await _repository.DeleteAsync(request.Id);
+            var oldUom = await _repository.GetAsync(request.Id);
+            if (oldUom is null)
+                throw new NotFoundException(nameof(UOM), request.Id);
+            //Remove
+            await _repository.DeleteAsync(oldUom.Id);
             return Unit.Value;
         }
     }

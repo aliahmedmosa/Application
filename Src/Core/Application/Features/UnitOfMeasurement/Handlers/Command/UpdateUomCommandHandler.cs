@@ -1,11 +1,4 @@
-﻿using Application.Features.UnitOfMeasurement.Requests.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Features.UnitOfMeasurement.Handlers.Command
+﻿namespace Application.Features.UnitOfMeasurement.Handlers.Command
 {
     public class UpdateUomCommandHandler : IRequestHandler<UpdateUomCommand, Unit>
     {
@@ -19,7 +12,13 @@ namespace Application.Features.UnitOfMeasurement.Handlers.Command
         }
         public async Task<Unit> Handle(UpdateUomCommand request, CancellationToken cancellationToken)
         {
-            var oldUom=await _repository.GetAsync(request.UOMDTO.Id);
+            //Check validator
+            var validator = new UomValidator();
+            var validatorResult = await validator.ValidateAsync(request.UOMDTO, cancellationToken);
+            if (validatorResult.IsValid == false)
+                throw new Exceptions.ValidationException(validatorResult);
+
+            var oldUom = await _repository.GetAsync(request.UOMDTO.Id);
             var res = _mapper.Map(request.UOMDTO, oldUom);
             await _repository.UpdateAsync(res);
             return Unit.Value;

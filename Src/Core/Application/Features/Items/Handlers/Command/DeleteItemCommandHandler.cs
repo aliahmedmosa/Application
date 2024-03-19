@@ -1,9 +1,4 @@
 ﻿using Application.Features.Items.Requests.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Items.Handlers.Command
 {
@@ -17,7 +12,11 @@ namespace Application.Features.Items.Handlers.Command
         }
         public async Task<Unit> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
-            await _repository.DeleteAsync(request.Id);
+            var oldItem = await _repository.GetAsync(request.Id);
+            if (oldItem is null)
+                throw new NotFoundException(nameof(Item),request.Id);
+            //remove
+            await _repository.DeleteAsync(oldItem.Id);
             return Unit.Value;
         }
     }

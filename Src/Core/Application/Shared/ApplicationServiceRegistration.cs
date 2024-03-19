@@ -10,9 +10,10 @@ namespace Application.Shared
     {
         public static void ConfigureApplicationService(this IServiceCollection services)
         {
-            //Configure AutoMapper & MediatR
+            //Configure AutoMapper & MediatR & Fluent validation
             services.AddAutoMapper(typeof(ItemMappingProfile));
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
 }
