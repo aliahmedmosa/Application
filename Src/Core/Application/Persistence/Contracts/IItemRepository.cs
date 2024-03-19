@@ -9,5 +9,6 @@ namespace Application.Persistence.Contracts
     public interface IItemRepository:IGenericRepository<Item>
     {
         //Special For Item
+        Task<List<Item>> GetAllAsyncWithInclude();
     }
 }

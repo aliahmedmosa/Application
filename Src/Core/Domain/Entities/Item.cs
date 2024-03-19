@@ -7,10 +7,12 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public int QTY { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
         //Navigtional prop
-        public virtual UOM UOM { get; set; }     
+        public virtual UOM UOM { get; set; }
         public int UOMId { get; set; }
 
     }

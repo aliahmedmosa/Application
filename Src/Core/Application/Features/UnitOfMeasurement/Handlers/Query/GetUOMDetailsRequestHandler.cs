@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Handlers.Query
 {
-    internal class GetUOMDetailsRequestHandler : IRequestHandler<GetUOMDetailsRequest, UOMDTO>
+    public class GetUOMDetailsRequestHandler : IRequestHandler<GetUOMDetailsRequest, UOMDTO>
     {
         private readonly IUomRepository _repository;
         private readonly IMapper _mapper;
