@@ -18,10 +18,10 @@ namespace Application.Features.UnitOfMeasurement.Handlers.Query
         }
         public async Task<UOMDTO> Handle(GetUOMDetailsRequest request, CancellationToken cancellationToken)
         {
-            var UOM = await _repository.GetAsync(request.Id);
-            if (UOM is null)
-                throw new Exception();
-            return _mapper.Map<UOMDTO>(UOM);
+            var uOM = await _repository.GetAsync(request.Id);
+            if (uOM is null)
+                throw new NotFoundException(nameof(UOM),request.Id);
+            return _mapper.Map<UOMDTO>(uOM);
             
         }
     }

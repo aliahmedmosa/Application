@@ -10,5 +10,6 @@ namespace Application.Persistence.Contracts
     {
         //Special For Item
         Task<List<Item>> GetAllAsyncWithInclude();
+        Task<bool> IsUomExisting(int itemId);
     }
 }

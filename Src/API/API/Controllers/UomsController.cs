@@ -2,7 +2,6 @@
 using Application.Features.UnitOfMeasurement.Requests.Command;
 using Application.Features.UnitOfMeasurement.Requests.Query;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -37,6 +36,18 @@ namespace API.Controllers
         {
             var response = await _mediator.Send(new CreateUOMCommand { UOMDTO = uOMDTO });
             return Ok(response);
+        }
+        [HttpPut("UpdateUom")]
+        public async Task<IActionResult> Put([FromBody] UOMDTO uOMDTO)
+        {
+            var response = await _mediator.Send(new UpdateUomCommand { UOMDTO = uOMDTO });
+            return Ok(response);
+        }
+        [HttpDelete("DeleteUom/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteUOMCommand { Id = id });
+            return NoContent();
         }
     }
 }

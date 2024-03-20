@@ -27,7 +27,7 @@
             await _repository.CreateAsync(Uom);
             response.Success = true;
             response.Message = "Successfuly creation";
-            response.Id = request.UOMDTO.Id;
+            response.Id = Uom.Id;
             return response;
         }
     }

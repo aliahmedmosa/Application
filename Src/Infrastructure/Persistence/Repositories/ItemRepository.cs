@@ -20,5 +20,10 @@ namespace Persistence.Repositories
         public async Task<List<Item>> GetAllAsyncWithInclude()
         => await _dbContext.Items.AsNoTracking().Include(x => x.UOM).ToListAsync();
 
+        public async Task<bool> IsUomExisting(int uomId)
+        {
+            var response = await _dbContext.UOMs.FindAsync(uomId);
+            return response != null;
+        }
     }
 }

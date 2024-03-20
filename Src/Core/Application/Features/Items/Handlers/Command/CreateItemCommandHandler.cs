@@ -27,7 +27,7 @@
             await _repository.CreateAsync(item);
             response.Success = true;
             response.Message = "Successfuly creation";
-            response.Id = request.ItemDTO.Id;
+            response.Id = item.Id;
             return response;
         }
     }

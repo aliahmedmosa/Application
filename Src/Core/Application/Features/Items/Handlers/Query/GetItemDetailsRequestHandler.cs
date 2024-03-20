@@ -14,7 +14,7 @@
         {
             var item = await _repository.GetAsync(request.Id);
             if (item is null)
-                throw new Exception();
+                throw new NotFoundException(nameof(Item), request.Id);
             return _mapper.Map<ItemDTO>(item);
         }
     }
