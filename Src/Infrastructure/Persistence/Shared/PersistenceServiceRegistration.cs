@@ -12,7 +12,8 @@ namespace Persistence.Shared
             //Configure Application DbContext
             services.AddDbContext<ApplicationDbContext>(opt =>
             {
-                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")?? throw new InvalidOperationException("Connection string is not found"));
+                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")?? 
+                    throw new InvalidOperationException("Connection string is not found"));
             });
 
             //Configure Services
