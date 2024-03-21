@@ -1,9 +1,8 @@
 ﻿using Application.DTOs.IdentityDTOs;
 using Application.Persistence.Contracts.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace API.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
