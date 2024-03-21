@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Identity;
+﻿using Application.Persistence.Contracts.Identity;
+using Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Repositories;
+using Persistence.Repositories.Identity;
 using System.Text;
 
 namespace Persistence.Shared
@@ -48,6 +50,7 @@ namespace Persistence.Shared
                 };
             });
             //Configure Services
+            services.AddScoped<IUserAccount, AccountRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUomRepository, UomRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
