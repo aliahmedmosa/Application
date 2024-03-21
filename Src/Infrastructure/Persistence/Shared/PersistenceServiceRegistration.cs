@@ -24,7 +24,7 @@ namespace Persistence.Shared
             //Configure Application DbContext
             services.AddDbContext<ApplicationDbContext>(opt =>
             {
-                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")?? 
+                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection") ??
                     throw new InvalidOperationException("Connection string is not found"));
             });
             //JWT
@@ -49,6 +49,7 @@ namespace Persistence.Shared
                     ClockSkew = TimeSpan.Zero
                 };
             });
+            
             //Configure Services
             services.AddScoped<IUserAccount, AccountRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

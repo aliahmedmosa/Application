@@ -20,7 +20,7 @@ namespace Persistence.Repositories.Identity
     {
         public async Task<GeneralResponse> CreateAccount(UserDTO userDTO)
         {
-            if (userDTO is null) return new ServiceResponses.GeneralResponse(false,"Model is empty");
+            if (userDTO is null) return new GeneralResponse(false,"Model is empty");
             var newUser = new AppUser()
             {
                 Name = userDTO.Name,
@@ -29,18 +29,18 @@ namespace Persistence.Repositories.Identity
                 UserName = userDTO.Email
             };
             var user = await userManager.FindByEmailAsync( newUser.Email );
-            if (user is not null) return new ServiceResponses.GeneralResponse(false, "User Registered alraedy");
+            if (user is not null) return new GeneralResponse(false, "User Registered alraedy");
             
             var createUser=await userManager.CreateAsync( newUser!,userDTO.Password );
-            if (!createUser.Succeeded) return new ServiceResponses.GeneralResponse(false, "Error Occured .. Please try again ! ");
-            /*
+            if (!createUser.Succeeded) return new GeneralResponse(false, "Error Occured .. Please try again ! ");
+            
             //Assign Defult Role :Admin too first registration
             var checkAdmin = await roleManager.FindByNameAsync("Admin");
             if(checkAdmin is null)
             {
                 await roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
                 await userManager.AddToRoleAsync(newUser, "Admin");
-                return new ServiceResponses.GeneralResponse(true, "Account Created");
+                return new GeneralResponse(true, "Account Created");
             }
             else
             {
@@ -48,9 +48,8 @@ namespace Persistence.Repositories.Identity
                 if (checkUser is null)
                     await roleManager.CreateAsync(new IdentityRole() { Name = "User" });
                 await userManager.AddToRoleAsync(newUser, "User");
-                return new ServiceResponses.GeneralResponse(true, "Account created");
-            }*/
-            return new ServiceResponses.GeneralResponse(true, "Account created");
+                return new GeneralResponse(true, "Account created");
+            }
         }
 
         public async Task<LoginResponse> LoginAccount(LoginDTO loginDTO)
@@ -66,30 +65,42 @@ namespace Persistence.Repositories.Identity
             if(!checkPassword)
                 return new LoginResponse(false, null!, "Invalid password/email");
 
-            //var userRole = await userManager.GetRolesAsync(user);
-            var userSession = new UserSession(user.Id, user.Name, user.Email, "Admin");
-            string token = GenerateToken(userSession);
+            string token =await CreateJwtToken(user);
             return new LoginResponse(true, token, "Login Completed");
         }
-        private string GenerateToken(UserSession userSession)
+        private async Task<string> CreateJwtToken(AppUser user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var userClaims = new[]
+            var userClaims = await userManager.GetClaimsAsync(user);
+            var roles = await userManager.GetRolesAsync(user);
+            var roleClaims = new List<Claim>();
+
+            foreach (var role in roles)
             {
-                new Claim(ClaimTypes.NameIdentifier, userSession.Id),
-                new Claim(ClaimTypes.Name, userSession.Name),
-                new Claim(ClaimTypes.Email, userSession.Email),
-                new Claim(ClaimTypes.Role, userSession.Role)
-            };
-            var token = new JwtSecurityToken(
+                roleClaims.Add(new Claim("roles", role));
+            }
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("uid", user.Id)
+            }
+            .Union(roleClaims)
+            .Union(userClaims);
+            var x = config["Jwt:Key"]!;
+            var symmerticSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
+            var signingCredentials = new SigningCredentials(symmerticSecurityKey, SecurityAlgorithms.HmacSha256);
+
+            var jwtSecurityToken = new JwtSecurityToken(
                 issuer: config["Jwt:Issuer"],
                 audience: config["Jwt:Audience"],
-                claims: userClaims,
+                claims: claims,
                 expires: DateTime.Now.AddDays(1),
-                signingCredentials: credentials
-                );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                signingCredentials: signingCredentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
+        
     }
 }

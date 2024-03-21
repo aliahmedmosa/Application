@@ -16,8 +16,9 @@ namespace Persistence.DataBaseContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            modelBuilder.Entity<IdentityUserRole<string>>()
+                        .HasKey(r => new { r.UserId, r.RoleId });
             modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
-            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

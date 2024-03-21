@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.IdentityDTOs;
 using Application.Persistence.Contracts.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Identity
@@ -21,5 +22,6 @@ namespace API.Controllers.Identity
             var response = await userAccount.LoginAccount(loginDTO);
             return Ok(response);
         }
+        
     }
 }
