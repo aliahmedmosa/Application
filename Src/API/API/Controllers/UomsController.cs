@@ -2,6 +2,7 @@
 using Application.Features.UnitOfMeasurement.Requests.Command;
 using Application.Features.UnitOfMeasurement.Requests.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,8 +17,9 @@ namespace API.Controllers
         {
             _mediator = mediator;
         }
-
+        
         [HttpGet("GetAllUoms")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
             var uoms = await _mediator.Send(new GetAllUOMsRequest());
