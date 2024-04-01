@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Handlers.Query
 {
-    public class GetAllUOMsRequestHandler : IRequestHandler<GetAllUOMsRequest, List<UOMDTO>>
+    public class GetAllUOMsRequestHandler : IRequestHandler<GetAllUOMsRequest, BaseCommandResponse<List<UOMDTO>>>
     {
         private readonly IUomRepository _repository;
         private readonly IMapper _mapper;
@@ -16,11 +16,24 @@ namespace Application.Features.UnitOfMeasurement.Handlers.Query
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<List<UOMDTO>> Handle(GetAllUOMsRequest request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<List<UOMDTO>>> Handle(GetAllUOMsRequest request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse<List<UOMDTO>>();
             var UOMs = await _repository.GetAllAsync();
             var result = _mapper.Map<List<UOMDTO>>(UOMs);
-            return result;
+            if (result is null)
+            {
+                response.Success = false;
+                response.Message = "Data not found";
+                response.Data = null;
+                response.Errors = null;
+                return response;
+            }
+            response.Success = true;
+            response.Message = "Data obtained successfuly";
+            response.Data = result;
+            response.Errors = null;
+            return response;
         }
     }
 }

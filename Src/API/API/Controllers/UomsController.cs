@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.EntitiesDTOs.UnitOfMeasurementDTOs;
 using Application.Features.UnitOfMeasurement.Requests.Command;
 using Application.Features.UnitOfMeasurement.Requests.Query;
+using Azure;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,18 +20,18 @@ namespace API.Controllers
         }
         
         [HttpGet("GetAllUoms")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
-            var uoms = await _mediator.Send(new GetAllUOMsRequest());
-            return Ok(uoms);
+            var response = await _mediator.Send(new GetAllUOMsRequest());
+            return Ok(response);
         }
 
         [HttpGet("GetUom/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var uom = await _mediator.Send(new GetUOMDetailsRequest { Id = id });
-            return Ok(uom);
+            var response = await _mediator.Send(new GetUOMDetailsRequest { Id = id });
+            return Ok(response);
         }
 
         [HttpPost("AddUom")]
@@ -48,8 +49,8 @@ namespace API.Controllers
         [HttpDelete("DeleteUom/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteUOMCommand { Id = id });
-            return NoContent();
+            var response = await _mediator.Send(new DeleteUOMCommand { Id = id });
+            return Ok(response);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Requests.Query
 {
-    public class GetAllUOMsRequest:IRequest<List<UOMDTO>>
+    public class GetAllUOMsRequest:IRequest<BaseCommandResponse<List<UOMDTO>>>
     {
     }
 }

@@ -19,7 +19,7 @@ namespace Application.DTOs.EntitiesDTOs.ItemDTOs.Validators
                 .MustAsync(async (id, token) =>
                 {
                     var uomIdIsExisting = await repository.IsUomExisting(id);
-                    return !uomIdIsExisting;
+                    return uomIdIsExisting;
                 })
                 .WithMessage("{PropertyName} is not existing");
                 

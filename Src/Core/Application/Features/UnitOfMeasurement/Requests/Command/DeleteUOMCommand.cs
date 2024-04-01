@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Requests.Command
 {
-    public class DeleteUOMCommand:IRequest
+    public class DeleteUOMCommand:IRequest<BaseCommandResponse<string>>
     {
         public int Id { get; set; }
     }

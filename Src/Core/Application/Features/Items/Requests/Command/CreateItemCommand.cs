@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Items.Requests.Command
 {
-    public class CreateItemCommand:IRequest<BaseCommandResponse>
+    public class CreateItemCommand:IRequest<BaseCommandResponse<string>>
     {
         public ItemDTO ItemDTO { get; set; }
     }

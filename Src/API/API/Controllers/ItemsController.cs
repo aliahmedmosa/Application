@@ -2,6 +2,7 @@
 using Application.Features.Items.Requests.Command;
 using Application.Features.Items.Requests.Query;
 using Application.Features.UnitOfMeasurement.Requests.Command;
+using Azure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,14 +22,14 @@ namespace API.Controllers
         [HttpGet("GetAllItems")]
         public async Task<IActionResult> Get()
         {
-            var items = await _mediator.Send(new GetAllItemsRequest());
-            return Ok(items);
+            var response = await _mediator.Send(new GetAllItemsRequest());
+            return Ok(response);
         }
         [HttpGet("GetItem/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var item = await _mediator.Send(new GetItemDetailsRequest { Id = id });
-            return Ok(item);
+            var response = await _mediator.Send(new GetItemDetailsRequest { Id = id });
+            return Ok(response);
         }
         [HttpPost("AddItems")]
         public async Task<IActionResult> Post([FromBody] ItemDTO itemDTO)
@@ -47,8 +48,8 @@ namespace API.Controllers
         [HttpDelete("DeleteItem/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteItemCommand { Id = id });
-            return NoContent();
+            var response = await _mediator.Send(new DeleteItemCommand { Id = id });
+            return Ok(response);
         }
 
     }

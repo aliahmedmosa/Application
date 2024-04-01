@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitOfMeasurement.Requests.Command
 {
-    public class UpdateUomCommand:IRequest<Unit>
+    public class UpdateUomCommand:IRequest<BaseCommandResponse<string>>
     {
         public UOMDTO UOMDTO { get; set; }
     }

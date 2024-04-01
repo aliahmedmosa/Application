@@ -2,7 +2,7 @@
 
 namespace Application.Features.Items.Handlers.Command
 {
-    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
+    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand, BaseCommandResponse<string>>
     {
         private readonly IItemRepository _repository;
 
@@ -10,14 +10,23 @@ namespace Application.Features.Items.Handlers.Command
         {
             _repository = repository;
         }
-        public async Task<Unit> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<string>> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse<string>();
             var oldItem = await _repository.GetAsync(request.Id);
             if (oldItem is null)
-                throw new NotFoundException(nameof(Item),request.Id);
+            {
+                response.Success = false;
+                response.Message = "No data found";
+                response.Errors = null;
+                return response;
+            }
             //remove
             await _repository.DeleteAsync(oldItem.Id);
-            return Unit.Value;
+            response.Success = true;
+            response.Message = "Item deleted";
+            response.Errors = null;
+            return response;
         }
     }
 }

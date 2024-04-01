@@ -1,6 +1,8 @@
-﻿namespace Application.Features.Items.Handlers.Query
+﻿using Domain.Entities;
+
+namespace Application.Features.Items.Handlers.Query
 {
-    public class GetAllItemsRequestHandler : IRequestHandler<GetAllItemsRequest, List<ItemDTO>>
+    public class GetAllItemsRequestHandler : IRequestHandler<GetAllItemsRequest, BaseCommandResponse<List<ItemDTO>>>
     {
         private readonly IItemRepository _repository;
         private readonly IMapper _mapper;
@@ -10,11 +12,24 @@
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<List<ItemDTO>> Handle(GetAllItemsRequest request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse<List<ItemDTO>>> Handle(GetAllItemsRequest request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse<List<ItemDTO>>();
             var items = await _repository.GetAllAsync();
             var result = _mapper.Map<List<ItemDTO>>(items);
-            return result;
+            if (result is null)
+            {
+                response.Success = false;
+                response.Message = "Data not found";
+                response.Data = null;
+                response.Errors = null;
+                return response;
+            }
+            response.Success = true;
+            response.Message = "Data obtained successfuly";
+            response.Data = result;
+            response.Errors = null;
+            return response;
         }
     }
 }
