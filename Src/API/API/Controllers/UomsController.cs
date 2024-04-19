@@ -20,7 +20,7 @@ namespace API.Controllers
         }
         
         [HttpGet("GetAllUoms")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
             var response = await _mediator.Send(new GetAllUOMsRequest());
