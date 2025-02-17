@@ -15,3 +15,5 @@ global using Application.Exceptions;
 global using Application.DTOs.EntitiesDTOs.ItemDTOs.Validators;
 global using Application.Features.Items.Requests.Command;
 global using Application.Responses;
+global using Application.DTOs.EntitiesDTOs.EmployeeDTOs;
+global using Application.DTOs.EntitiesDTOs.DepartmentDTOs;

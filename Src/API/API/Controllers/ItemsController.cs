@@ -1,8 +1,6 @@
 ﻿using Application.DTOs.EntitiesDTOs.ItemDTOs;
 using Application.Features.Items.Requests.Command;
 using Application.Features.Items.Requests.Query;
-using Application.Features.UnitOfMeasurement.Requests.Command;
-using Azure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +29,7 @@ namespace API.Controllers
             var response = await _mediator.Send(new GetItemDetailsRequest { Id = id });
             return Ok(response);
         }
-        [HttpPost("AddItems")]
+        [HttpPost("AddItem")]
         public async Task<IActionResult> Post([FromBody] ItemDTO itemDTO)
         {
             var response = await _mediator.Send(new CreateItemCommand { ItemDTO = itemDTO });

@@ -1,7 +1,6 @@
 using Application.Shared;
 using Microsoft.OpenApi.Models;
 using Persistence.Shared;
-using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

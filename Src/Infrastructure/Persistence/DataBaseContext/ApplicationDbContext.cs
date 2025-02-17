@@ -32,6 +32,8 @@ namespace Persistence.DataBaseContext
             }
             return base.SaveChangesAsync(cancellationToken);
         }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<UOM> UOMs { get; set; }
 

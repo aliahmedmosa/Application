@@ -1,7 +1,6 @@
 ﻿using Application.DTOs.EntitiesDTOs.UnitOfMeasurementDTOs;
 using Application.Features.UnitOfMeasurement.Requests.Command;
 using Application.Features.UnitOfMeasurement.Requests.Query;
-using Azure;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

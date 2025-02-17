@@ -1,6 +1,5 @@
 ﻿using Application.DTOs.IdentityDTOs;
 using Application.Persistence.Contracts.Identity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Identity

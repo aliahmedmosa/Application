@@ -1,4 +1,5 @@
-﻿using Application.Persistence.Contracts.Identity;
+﻿using Application.Persistence;
+using Application.Persistence.Contracts.Identity;
 using Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +56,8 @@ namespace Persistence.Shared
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUomRepository, UomRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
     }
 }
