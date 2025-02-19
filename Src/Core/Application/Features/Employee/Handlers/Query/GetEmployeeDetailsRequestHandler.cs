@@ -1,4 +1,5 @@
 ﻿using Application.Features.Employee.Requests.Query;
+using Application.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Application.Features.Employee.Handlers.Query
 {
     public class GetEmployeeDetailsRequestHandler : IRequestHandler<GetEmployeeDetailsRequest, BaseCommandResponse<EmployeeDTO>>
     {
-        private readonly IItemRepository _repository;
+        private readonly IEmployeeRepository _repository;
         private readonly IMapper _mapper;
-        public GetEmployeeDetailsRequestHandler(IItemRepository repository, IMapper mapper)
+        public GetEmployeeDetailsRequestHandler(IEmployeeRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
