@@ -2,6 +2,7 @@
 using Application.Persistence.Contracts.Identity;
 using Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,6 +59,18 @@ namespace Persistence.Shared
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+        }
+
+        public static async void InfrastructureConfigMiddleware(this IApplicationBuilder app)
+        {
+            using(var scope = app.ApplicationServices.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                await IdentitySeed.SeedUsersAsync(userManager, roleManager);
+            }
         }
     }
 }

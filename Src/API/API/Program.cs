@@ -75,5 +75,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.MapControllers();
-
+PersistenceServiceRegistration.InfrastructureConfigMiddleware(app);
 app.Run();

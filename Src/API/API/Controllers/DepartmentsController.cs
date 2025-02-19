@@ -23,7 +23,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAllDepartments")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             var response = await _mediator.Send(new GetAllDepartmentsRequest());
@@ -31,6 +31,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetDepartment/{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(int id)
         {
             var response = await _mediator.Send(new GetDepartmentDetailsRequest { Id = id });
@@ -38,18 +39,23 @@ namespace API.Controllers
         }
 
         [HttpPost("AddDepartment")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] DepartmentDTO departmentDTO)
         {
             var response = await _mediator.Send(new CreateDepartmentCommand { DepartmentDTO = departmentDTO });
             return Ok(response);
         }
+
         [HttpPut("UpdateDepartment")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put([FromBody] DepartmentDTO departmentDTO)
         {
             var response = await _mediator.Send(new UpdateDepartmentCommand { DepartmentDTO = departmentDTO });
             return Ok(response);
         }
+
         [HttpDelete("DeleteDepartment/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _mediator.Send(new DeleteDepartmentCommand { Id = id });
